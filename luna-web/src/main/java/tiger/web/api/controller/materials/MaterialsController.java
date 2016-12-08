@@ -5,13 +5,17 @@
 package tiger.web.api.controller.materials;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tiger.biz.materials.support.MaterialsManager;
-import tiger.common.dal.persistence.materials.Materials;
+import tiger.core.basic.BaseResult;
 import tiger.core.basic.PageResult;
+import tiger.core.domain.materials.MaterialsDomain;
 import tiger.web.api.constants.APIConstants;
 import tiger.web.api.controller.BaseController;
+import tiger.web.api.form.materials.MaterialsAddForm;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -21,16 +25,31 @@ import java.util.List;
  */
 @RestController
 @ResponseBody
-@RequestMapping(APIConstants.BASE_API_URL + "/")
+@RequestMapping(APIConstants.BASE_API_URL + "/materials")
 public class MaterialsController extends BaseController{
 
     @Autowired
     MaterialsManager materialsManager;
 
-    @RequestMapping(value = "materials/all", method = RequestMethod.GET)
+    /**
+     * 获取所有的物料信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public PageResult<List<Materials>> getAll() {
+    public PageResult<List<MaterialsDomain>> getAll() {
 
         return materialsManager.getAll();
+    }
+
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult<Boolean> insertMaterials(@RequestBody @Valid MaterialsAddForm materialsAddForm,
+                                                       BindingResult bindingResult) {
+
+        MaterialsDomain materialsDomain = materialsAddForm.convert2Domain();
+        return new BaseResult<>(materialsManager.insert(materialsDomain));
     }
 }

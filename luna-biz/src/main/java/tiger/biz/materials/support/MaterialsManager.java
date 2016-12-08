@@ -6,6 +6,7 @@ package tiger.biz.materials.support;
 
 import tiger.common.dal.persistence.materials.Materials;
 import tiger.core.basic.PageResult;
+import tiger.core.domain.materials.MaterialsDomain;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ import java.util.List;
  */
 public interface MaterialsManager {
 
-    PageResult<List<Materials>> getAll();
+    PageResult<List<MaterialsDomain>> getAll();
+
+    Boolean insert(MaterialsDomain materialsDomain);
 }

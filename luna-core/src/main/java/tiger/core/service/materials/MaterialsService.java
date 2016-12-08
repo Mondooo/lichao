@@ -5,6 +5,7 @@
 package tiger.core.service.materials;
 
 import tiger.common.dal.persistence.materials.Materials;
+import tiger.core.domain.materials.MaterialsDomain;
 
 import java.util.List;
 
@@ -20,7 +21,13 @@ public interface MaterialsService  {
      *
      * @return
      */
-    List<Materials> getAll();
+    List<MaterialsDomain> getAll();
 
-
+    /**
+     * 插入一条物料信息
+     *
+     * @param materials
+     * @return
+     */
+    Boolean insert(Materials materials);
 }

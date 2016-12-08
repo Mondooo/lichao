@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import tiger.biz.materials.support.MaterialsManager;
 import tiger.common.dal.persistence.materials.Materials;
 import tiger.core.basic.PageResult;
+import tiger.core.domain.materials.MaterialsDomain;
+import tiger.core.domain.materials.convert.MaterialsConvert;
 import tiger.core.service.materials.MaterialsService;
 
 import java.util.List;
@@ -25,8 +27,17 @@ public class MaterialsManagerImpl implements MaterialsManager {
     MaterialsService materialsService;
 
     @Override
-    public PageResult<List<Materials>> getAll() {
+    public PageResult<List<MaterialsDomain>> getAll() {
 
         return new PageResult<>(materialsService.getAll());
+    }
+
+    @Override
+    public Boolean insert(MaterialsDomain materialsDomain) {
+        if (materialsDomain == null) {
+            return false;
+        }
+
+        return materialsService.insert(MaterialsConvert.convert2DO(materialsDomain));
     }
 }
