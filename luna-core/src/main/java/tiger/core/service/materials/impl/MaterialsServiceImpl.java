@@ -41,4 +41,28 @@ public class MaterialsServiceImpl implements MaterialsService {
     public Boolean update(Materials materials) {
         return materialsMapper.updateByPrimaryKey(materials) > 0;
     }
+
+    @Override
+    public List<MaterialsDomain> getSome(String column, String value) {
+        MaterialsExample example = new MaterialsExample();
+        switch (column) {
+            case "code": example.createCriteria().andCodeEqualTo(value);break;
+            case "description": example.createCriteria().andDescriptionEqualTo(value);break;
+            case "majorcategory": example.createCriteria().andMajorcategoryEqualTo(value);break;
+            case "subcategory": example.createCriteria().andSubcategoryEqualTo(value);break;
+            case "detailclass": example.createCriteria().andDetailclassEqualTo(value);break;
+            case "productline": example.createCriteria().andProductlineEqualTo(value);break;
+            case "marketprice":
+                double mvalue = Double.parseDouble(value);
+                example.createCriteria().andMarketpriceEqualTo(mvalue);
+                break;
+            case "discount":
+                double dvalue = Double.parseDouble(value);
+                example.createCriteria().andDiscountEqualTo(dvalue);
+                break;
+
+        }
+        return MaterialsConvert.convert2Domains(materialsMapper.selectByExample(example));
+    }
+
 }

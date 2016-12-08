@@ -21,4 +21,6 @@ public interface MaterialsManager {
     Boolean insert(MaterialsDomain materialsDomain);
 
     Boolean update(MaterialsDomain materialsDomain);
+
+    PageResult<List<MaterialsDomain>> getSome(String column, String value);
 }

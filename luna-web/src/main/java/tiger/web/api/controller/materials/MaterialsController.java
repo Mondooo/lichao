@@ -75,4 +75,19 @@ public class MaterialsController extends BaseController{
         MaterialsDomain materialsDomain = materialsUpdateForm.convert2Domain();
         return new BaseResult<>(materialsManager.update(materialsDomain));
     }
+
+    /**
+     * 根据条件获取物料信息
+     *
+     * @param column
+     * @param value
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public PageResult<List<MaterialsDomain>> getSomeMaterials(@RequestParam("column") String column,
+                                                @RequestParam("value") String value) {
+
+        return materialsManager.getSome(column, value);
+    }
+
 }

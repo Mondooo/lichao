@@ -49,4 +49,10 @@ public class MaterialsManagerImpl implements MaterialsManager {
 
         return materialsService.update(MaterialsConvert.convert2DO(materialsDomain));
     }
+
+    @Override
+    public PageResult<List<MaterialsDomain>> getSome(String column, String value) {
+        return new PageResult<>(materialsService.getSome(column, value));
+    }
+
 }

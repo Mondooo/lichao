@@ -38,4 +38,14 @@ public interface MaterialsService  {
      * @return
      */
     Boolean update(Materials materials);
+
+    /**
+     * 根据条件获取物料条目
+     *
+     * @param column
+     * @param value
+     * @return
+     */
+    List<MaterialsDomain> getSome(String column, String value);
+
 }
