@@ -40,4 +40,13 @@ public class MaterialsManagerImpl implements MaterialsManager {
 
         return materialsService.insert(MaterialsConvert.convert2DO(materialsDomain));
     }
+
+    @Override
+    public Boolean update(MaterialsDomain materialsDomain) {
+        if (materialsDomain == null) {
+            return false;
+        }
+
+        return materialsService.update(MaterialsConvert.convert2DO(materialsDomain));
+    }
 }

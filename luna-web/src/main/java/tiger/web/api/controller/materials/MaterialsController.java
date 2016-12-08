@@ -14,6 +14,7 @@ import tiger.core.domain.materials.MaterialsDomain;
 import tiger.web.api.constants.APIConstants;
 import tiger.web.api.controller.BaseController;
 import tiger.web.api.form.materials.MaterialsAddForm;
+import tiger.web.api.form.materials.MaterialsUpdateForm;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -43,7 +44,13 @@ public class MaterialsController extends BaseController{
         return materialsManager.getAll();
     }
 
-
+    /**
+     * 新增一条物料信息
+     *
+     * @param materialsAddForm
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public BaseResult<Boolean> insertMaterials(@RequestBody @Valid MaterialsAddForm materialsAddForm,
@@ -51,5 +58,21 @@ public class MaterialsController extends BaseController{
 
         MaterialsDomain materialsDomain = materialsAddForm.convert2Domain();
         return new BaseResult<>(materialsManager.insert(materialsDomain));
+    }
+
+    /**
+     * 更新一条物料信息
+     *
+     * @param materialsUpdateForm
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @ResponseBody
+    public BaseResult<Boolean> updateMaterials(@RequestBody @Valid MaterialsUpdateForm materialsUpdateForm,
+                                               BindingResult bindingResult) {
+
+        MaterialsDomain materialsDomain = materialsUpdateForm.convert2Domain();
+        return new BaseResult<>(materialsManager.update(materialsDomain));
     }
 }

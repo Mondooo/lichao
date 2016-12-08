@@ -36,4 +36,9 @@ public class MaterialsServiceImpl implements MaterialsService {
     public Boolean insert(Materials materials) {
         return materialsMapper.insert(materials) > 0;
     }
+
+    @Override
+    public Boolean update(Materials materials) {
+        return materialsMapper.updateByPrimaryKey(materials) > 0;
+    }
 }

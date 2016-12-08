@@ -30,4 +30,12 @@ public interface MaterialsService  {
      * @return
      */
     Boolean insert(Materials materials);
+
+    /**
+     * 更新一条物料信息
+     *
+     * @param materials
+     * @return
+     */
+    Boolean update(Materials materials);
 }
