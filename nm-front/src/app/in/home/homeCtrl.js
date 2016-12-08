@@ -1,4 +1,100 @@
-export default ($scope, $rootScope, qService) => {
+export default ($scope, $rootScope, qService, materialsRes, ToasterTool) => {
 	'ngInject';
-	
+
+	const isNull = (value) => {
+    	return typeof(value) == undefined || value == null;
+    };
+
+	$scope.getAll = () => {
+		$rootScope.loading = true;
+		qService.httpGet(materialsRes.materialsAll, {}, {}).then((data) => {
+	        if (data.success) {
+	        	ToasterTool.success("查找成功");
+	            $scope.items = data.data;
+	        } else {
+	        	$scope.items = null;
+	        }
+	    }, (err) => {
+	    	ToasterTool.error("网络错误");
+	    	$scope.items = null;
+	    }).finally(() => {
+	        $rootScope.loading = false;
+	    });
+	};
+	$scope.params = {};
+	$scope.setCategory = (chName, enName) => {
+		$scope.category = chName;
+		$scope.params.column = enName;
+	}
+	$scope.setCategory('物料编码', 'code');
+
+	$scope.getSome = () => {
+		if (isNull($scope.params.value)) {
+			ToasterTool.warning("输入不能为空");
+			return;
+		}
+		$rootScope.loading = true;
+		const params = {
+			"column": $scope.params.column,
+			"value": $scope.params.value,
+		}
+		qService.httpGet(materialsRes.materials, params, {}).then((data) => {
+	        if (data.success) {
+	            if (data.data == null) {
+	            	ToasterTool.error("无结果");
+	            	$scope.items = null;
+	            } else {
+	            	ToasterTool.success("查找成功");
+	            	$scope.items = data.data;
+	            }
+	        } else {
+	        	$scope.items = null;
+	        }
+	    }, (err) => {
+	    	ToasterTool.error("网络错误");
+	    	$scope.items = null;
+	    }).finally(() => {
+	        $rootScope.loading = false;
+	    });
+	}
+	$scope.insert = () => {
+		ToasterTool.info("暂未提供^^");
+	}
+	$scope.changeDiscount = (item) => {
+		swal({
+			title: "修改折扣",
+			text: "输入新的折扣价",
+			type: "input",
+			showCancelButton: true,
+			closeOnConfirm: false,
+			showLoaderOnConfirm: true,
+			animation: "slide-from-top",
+			inputPlaceholder: "输入小数, 例: 0.78"
+		}, function(inputValue){
+			if (inputValue === false) return false;
+			if (inputValue === "") {
+				swal.showInputError("输入不能为空");
+				return false
+			}
+			if (isNaN(inputValue)) {
+				swal.showInputError("请输入数字");
+				return false
+			}
+			let item_back = item; // 留待还原item
+			// 修改折扣价格
+			item.discount = inputValue;
+			item.discountprice = inputValue * item.marketprice;
+			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+		        if (data.success) {
+		       		swal("修改成功！");
+		        } else {
+		        	ToasterTool.error("未知服务器错误");
+		        	item = item_back;
+		        }
+		    }, (err) => {
+		    	ToasterTool.error("网络错误");
+		    	item = item_back;
+		    });
+		});
+	}
 };

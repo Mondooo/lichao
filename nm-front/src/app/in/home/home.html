@@ -1,0 +1,69 @@
+<div class="home-module">
+	<div class="select-area">
+		<span class="title">筛选物料:</span>
+		<span class="zai">按</span>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default lichao-dropdown">{{category}}</button>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="javascript:void(0)" ng-click="setCategory('物料编码', 'code')">物料编码</a></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('物料描述', 'description')">物料描述</a></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('明细类', 'detailclass')">明细类</a></li>
+				<li class="divider"></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('大类', 'majorcategory')">大类</a></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('中类', 'subcategory')">中类</a></li>
+				<li class="divider"></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('生产公司', 'company')">生产公司</a></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('产品线', 'productline')">产品线</a></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('面价', 'marketprice')">面价</a></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('折扣', 'discount')">折扣</a></li>
+			</ul>
+		</div>
+		<span>找</span>
+		<input type="text" name="" class="form-control" placeholder="找啥？" ng-model="params.value">
+		<button type="button" class="btn btn-default lichao-find" ng-click="getSome()">开始找</button>
+	</div>
+	<div class="all-area">
+		<span class="title">显示所有:</span>
+		<button type="button" class="btn btn-default lichao-all" ng-click="getAll()">显示所有</button>
+	</div>
+	<div class="insert-area">
+		<span class="title">新建物料:</span>
+		<button type="button" class="btn btn-default lichao-insert" ng-click="insert()">新建物料</button>
+	</div>
+	<div class="content-area">
+		<div ng-show="loading" class="app-content-loading">
+			<i class="fa fa-spinner fa-spin loading-spinner"></i>
+		</div>
+		<div class="table-container">
+			{{item}}
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>物料编码</th>
+						<th>物料描述</th>
+						<th>明细类</th>
+						<th>面价</th>
+						<th>折扣</th>
+						<th>折扣价</th>
+						<th>修改折扣</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in items">
+						<td>{{item.code}}</td>
+						<td>{{item.description}}</td>
+						<td>{{item.detailclass}}</td>
+						<td>{{item.marketprice}}</td>
+						<td>{{item.discount}}</td>
+						<td>{{item.discountprice | number:2}}</td>
+						<td><a href="javascript:void(0)" ng-click="changeDiscount(item)">修改折扣</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

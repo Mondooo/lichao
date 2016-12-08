@@ -10,13 +10,13 @@ export default ($stateProvider, $urlRouterProvider, $locationProvider) => {
       controller: 'portalCtrl'
     })
     // 首页
-    .state('app.in', {
+    .state('in', {
       abstract: true,
       url: '/in',
       templateUrl: 'app/in/in.html', 
       controller: 'inCtrl'
     })
-    .state('app.in.home', {
+    .state('in.home', {
       url: '/home',
       templateUrl: 'app/in/home/home.html',
       controller: 'homeCtrl'

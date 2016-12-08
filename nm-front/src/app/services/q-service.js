@@ -31,19 +31,6 @@ export default ($q, $state, $sessionStorage) => {
 			* return deferred.promise;
 			*/
 		},
-		httpGetbyJSOG: (resource, parameters, headers) => {
-			return $q((resolve, reject) => {
-				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
-				resource(headers).get(parameters,
-				(value, responseHeaders) => {
-					value.headers = responseHeaders ? responseHeaders() : "";
-					resolve(JSOG.parse(JSOG.stringify(value)));
-				}, 
-				(httpResponse) => {
-					reject(httpResponse);
-				});
-			});
-		},
 		httpGetWithToken: (resource, parameters, headers) => {
 			return $q((resolve, reject) => {
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
@@ -62,7 +49,7 @@ export default ($q, $state, $sessionStorage) => {
 				resource(headers).post(parameters,body,
 				(value, responseHeaders) => {
 					value.headers = responseHeaders ? responseHeaders() : "";
-					resolve(JSOG.parse(JSOG.stringify(value)));
+					resolve(value);
 				}, 
 				(httpResponse) => {
 					reject(httpResponse);
@@ -75,7 +62,19 @@ export default ($q, $state, $sessionStorage) => {
 				resource(headers).post(parameters,body,
 				(value, responseHeaders) => {
 					value.headers = responseHeaders ? responseHeaders() : "";
-					resolve(JSOG.parse(JSOG.stringify(value)));
+					resolve(value);
+				}, 
+				(httpResponse) => {
+					reject(httpResponse);
+				});
+			});
+		},
+		httpPut: (resource, parameters, headers, body) => {
+			return $q((resolve, reject) => {
+				resource(headers).put(parameters,body,
+				(value, responseHeaders) => {
+					value.headers = responseHeaders ? responseHeaders() : "";
+					resolve(value);
 				}, 
 				(httpResponse) => {
 					reject(httpResponse);

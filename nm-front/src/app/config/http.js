@@ -33,7 +33,7 @@ export default ($httpProvider, lcConfig) => {
           }
       },
       responseError: function(response) {
-        return Promise.reject(response.data);
+        return Promise.reject(response);
       }
     };
   }]);
