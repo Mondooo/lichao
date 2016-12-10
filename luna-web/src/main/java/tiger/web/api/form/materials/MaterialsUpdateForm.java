@@ -20,6 +20,8 @@ public class MaterialsUpdateForm implements FormInterface{
     @NotNull(message = "id不能为空")
     private Long id;
 
+    private String name;
+
     @NotNull(message = "物料编码不能为空")
     private String code;
 
@@ -46,6 +48,8 @@ public class MaterialsUpdateForm implements FormInterface{
 
     @NotNull(message = "折扣不能为空")
     private Double discount;
+
+    private String remarks;
 
     public Long getId() {
         return id;
@@ -125,6 +129,22 @@ public class MaterialsUpdateForm implements FormInterface{
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     @Override

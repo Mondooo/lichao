@@ -21,6 +21,11 @@ public class MaterialsDomain extends BaseDomain{
     private String code;
 
     /**
+     * 物料名称
+     */
+    private String name;
+
+    /**
      * 物料描述
      *
      * @mbggenerated
@@ -80,6 +85,11 @@ public class MaterialsDomain extends BaseDomain{
      * 折扣后价格
      */
     private Double discountprice;
+
+    /**
+     * 备注
+     */
+    private String remarks;
 
     public Double getDiscountprice() {
         return discountprice;
@@ -327,5 +337,21 @@ public class MaterialsDomain extends BaseDomain{
      */
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

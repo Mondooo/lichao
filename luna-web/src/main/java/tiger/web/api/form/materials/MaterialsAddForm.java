@@ -20,6 +20,9 @@ public class MaterialsAddForm implements FormInterface {
     @NotNull(message = "物料编码不能为空")
     private String code;
 
+    @NotNull(message = "物料名称不能为空")
+    private String name;
+
     @NotNull(message = "物料描述不能为空")
     private String description;
 
@@ -43,6 +46,8 @@ public class MaterialsAddForm implements FormInterface {
 
     @NotNull(message = "折扣不能为空")
     private Double discount;
+
+    private String remarks;
 
     public String getCode() {
         return code;
@@ -114,6 +119,22 @@ public class MaterialsAddForm implements FormInterface {
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     @Override
