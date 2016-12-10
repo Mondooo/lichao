@@ -11,6 +11,7 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="javascript:void(0)" ng-click="setCategory('物料编码', 'code')">物料编码</a></li>
+				<li><a href="javascript:void(0)" ng-click="setCategory('物料名称', 'name')">物料名称</a></li>
 				<li><a href="javascript:void(0)" ng-click="setCategory('物料描述', 'description')">物料描述</a></li>
 				<li><a href="javascript:void(0)" ng-click="setCategory('明细类', 'detailclass')">明细类</a></li>
 				<li class="divider"></li>
@@ -26,9 +27,6 @@
 		<span>找</span>
 		<input type="text" name="" class="form-control" placeholder="找啥？" ng-model="params.value">
 		<button type="button" class="btn btn-default lichao-find" ng-click="getSome()">开始找</button>
-	</div>
-	<div class="all-area">
-		<span class="title">显示所有:</span>
 		<button type="button" class="btn btn-default lichao-all" ng-click="getAll()">显示所有</button>
 	</div>
 	<div class="insert-area">

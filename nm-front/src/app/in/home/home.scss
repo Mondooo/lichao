@@ -18,7 +18,7 @@
 		border-bottom-left-radius: inherit;
 		box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.15);	
 	}
-	.select-area, .insert-area, .content-area, .all-area, .title-area {
+	.select-area, .insert-area, .content-area, .title-area {
 		padding-left: 30px;
 		padding-right: 30px;
 	}
@@ -59,18 +59,9 @@
 		.lichao-find {
 			margin-left: 1em;
 		}
-	}
-	.all-area {
-		padding-top: 10px;
-		padding-bottom: 10px;
-		border-top: 2px groove #58a;
-		.title {
-			font-weight: bold;
-		}
 		.lichao-all {
-			margin-left: 2em;
+			margin-left: 40px;
 		}
-
 	}
 	.content-area {
 		position: relative;

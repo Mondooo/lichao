@@ -47,6 +47,7 @@ public class MaterialsServiceImpl implements MaterialsService {
         MaterialsExample example = new MaterialsExample();
         switch (column) {
             case "code": example.createCriteria().andCodeEqualTo(value);break;
+            case "name": example.createCriteria().andNameEqualTo(value);break;
             case "description": example.createCriteria().andDescriptionEqualTo(value);break;
             case "majorcategory": example.createCriteria().andMajorcategoryEqualTo(value);break;
             case "subcategory": example.createCriteria().andSubcategoryEqualTo(value);break;

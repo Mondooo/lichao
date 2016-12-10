@@ -26,7 +26,7 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool) => {
 		$scope.category = chName;
 		$scope.params.column = enName;
 	}
-	$scope.setCategory('物料编码', 'code');
+	$scope.setCategory('物料名称', 'name');
 
 	$scope.getSome = () => {
 		if (isNull($scope.params.value)) {
