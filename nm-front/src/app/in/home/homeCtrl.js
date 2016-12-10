@@ -63,11 +63,14 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool) => {
 	$scope.changeDiscount = (item) => {
 		swal({
 			title: "修改折扣",
-			text: "输入新的折扣价",
+			text: "输入新的折扣",
 			type: "input",
 			showCancelButton: true,
 			closeOnConfirm: false,
 			showLoaderOnConfirm: true,
+			confirmButtonText: "确定",
+			cancelButtonText: "取消",
+			inputValue: item.discount,
 			animation: "slide-from-top",
 			inputPlaceholder: "输入小数, 例: 0.78"
 		}, function(inputValue){
@@ -84,6 +87,74 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool) => {
 			// 修改折扣价格
 			item.discount = inputValue;
 			item.discountprice = inputValue * item.marketprice;
+			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+		        if (data.success) {
+		       		swal("修改成功！");
+		        } else {
+		        	ToasterTool.error("未知服务器错误");
+		        	item = item_back;
+		        }
+		    }, (err) => {
+		    	ToasterTool.error("网络错误");
+		    	item = item_back;
+		    });
+		});
+	}
+	$scope.changeName = (item) => {
+		swal({
+			title: "修改物料名称",
+			text: "输入新的物料名称",
+			type: "input",
+			showCancelButton: true,
+			closeOnConfirm: false,
+			showLoaderOnConfirm: true,
+			confirmButtonText: "确定",
+			cancelButtonText: "取消",
+			inputValue: item.name,
+			animation: "slide-from-top",
+			inputPlaceholder: "输入文字, 例: 名称"
+		}, function(inputValue){
+			if (inputValue === false) return false;
+			if (inputValue === "") {
+				swal.showInputError("输入不能为空");
+				return false
+			}
+			let item_back = item; // 留待还原item
+			item.name = inputValue;
+			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+		        if (data.success) {
+		       		swal("修改成功！");
+		        } else {
+		        	ToasterTool.error("未知服务器错误");
+		        	item = item_back;
+		        }
+		    }, (err) => {
+		    	ToasterTool.error("网络错误");
+		    	item = item_back;
+		    });
+		});
+	}
+	$scope.changeRemarks = (item) => {
+		swal({
+			title: "修改物料备注",
+			text: "输入新的备注",
+			type: "input",
+			showCancelButton: true,
+			closeOnConfirm: false,
+			showLoaderOnConfirm: true,
+			confirmButtonText: "确定",
+			cancelButtonText: "取消",
+			inputValue: item.remarks,
+			animation: "slide-from-top",
+			inputPlaceholder: "输入文字, 例: 备注"
+		}, function(inputValue){
+			if (inputValue === false) return false;
+			if (inputValue === "") {
+				swal.showInputError("输入不能为空");
+				return false
+			}
+			let item_back = item; // 留待还原item
+			item.remarks = inputValue;
 			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
 		        if (data.success) {
 		       		swal("修改成功！");

@@ -1,4 +1,5 @@
 <div class="home-module">
+	<h3 class="title-area">后台管理页 v0.1.0</h1>
 	<div class="select-area">
 		<span class="title">筛选物料:</span>
 		<span class="zai">按</span>
@@ -41,26 +42,28 @@
 		<div class="table-container">
 			{{item}}
 			<table class="table table-hover">
-				<thead>
+				<thead style="word-break: keep-all;"><!-- 强制标题不换行 -->
 					<tr>
 						<th>物料编码</th>
+						<th>物料名称<span style="font-size: 80%;">(点击修改)</span></th>
 						<th>物料描述</th>
 						<th>明细类</th>
 						<th>面价</th>
-						<th>折扣</th>
+						<th>折扣<span style="font-size: 80%;">(点击修改)</span></th>
 						<th>折扣价</th>
-						<th>修改折扣</th>
+						<th>备注<span style="font-size: 80%;">(点击修改)</span></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="item in items">
 						<td>{{item.code}}</td>
+						<td ng-click="changeName(item)"><span>{{item.name === null? "":item.name}}</span><a style="">{{item.name === null? "添加名称":""}}</a></td>
 						<td>{{item.description}}</td>
 						<td>{{item.detailclass}}</td>
 						<td>{{item.marketprice}}</td>
-						<td>{{item.discount}}</td>
+						<td ng-click="changeDiscount(item)"><span>{{item.discount === null? "":item.discount}}</span><a style="">{{item.discount === null? "添加折扣":""}}</a></td>
 						<td>{{item.discountprice | number:2}}</td>
-						<td><a href="javascript:void(0)" ng-click="changeDiscount(item)">修改折扣</a></td>
+						<td ng-click="changeRemarks(item)"><span>{{item.remarks === null? "":item.remarks}}</span><a style="">{{item.remarks === null? "添加备注":""}}</a></td>
 					</tr>
 				</tbody>
 			</table>
