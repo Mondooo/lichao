@@ -32,7 +32,7 @@
 		<div style="margin-top: 20px;height: 20px;text-align: right;">
 			<span ng-if="isShowTotalPrice" style="font-weight: bold; display: inline-block; margin-right: 10px;">总计：</span><span ng-if="isShowTotalPrice" style="display: inline-block;">{{totalPrice | number:2}}</span>
 		</div>
-		<input type="button" style="margin-top: 10px;" class="btn btn-danger noprn" name="" value="清空所有">
+		<input type="button" style="margin-top: 10px;" class="btn btn-danger noprn" ng-click="deleteAll()" name="" value="清空所有">
 		<input type="button" style="margin-top: 10px; margin-left: 10px;" class="btn btn-default noprn" ng-click="showTotalPrice()" name="" value="显示总计">
 	</div>
 </div>

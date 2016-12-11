@@ -4,6 +4,7 @@
  */
 package tiger.web.api.controller.results;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,18 @@ public class ResultsController extends BaseController {
     public PageResult<List<ResultsDomain>> getAll() {
 
         return resultsManager.getAll();
+    }
+
+    /**
+     * 删除所有的结果信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.DELETE)
+    @ResponseBody
+    public BaseResult<Boolean> deleteAll() {
+
+        return new BaseResult<>(resultsManager.deleteAll());
     }
 
     /**

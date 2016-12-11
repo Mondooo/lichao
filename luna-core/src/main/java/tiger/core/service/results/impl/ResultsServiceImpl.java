@@ -58,4 +58,9 @@ public class ResultsServiceImpl implements ResultsService {
     public Boolean delete(Long id) {
         return resultsMapper.deleteByPrimaryKey(id) > 0;
     }
+
+    @Override
+    public Boolean deleteAll() {
+        return resultsMapper.deleteByExample(new ResultsExample()) > 0;
+    }
 }

@@ -21,4 +21,6 @@ public interface ResultsManager {
     Boolean insert(ResultsDomain resultsDomain);
 
     Boolean delete(Long id);
+
+    Boolean deleteAll();
 }

@@ -37,4 +37,11 @@ public interface ResultsService {
      * @return
      */
     Boolean delete(Long id);
+
+    /**
+     * 删除所有结果
+     *
+     * @return
+     */
+    Boolean deleteAll();
 }

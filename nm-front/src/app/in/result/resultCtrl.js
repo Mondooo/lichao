@@ -52,6 +52,35 @@ export default ($scope, $rootScope, qService, resultsRes, ToasterTool) => {
         });
     }
 
+    $scope.deleteAll = () => {
+        swal({
+            title: "确定?",
+            text: "将清空结果表，不影响后台表",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            animation: "slide-from-top"
+        },function(isConfirm){
+            if (isConfirm) {
+                qService.httpDelete(resultsRes.resultsAll, {}, {}, {}).then((data) => {
+                    if (data.success) {
+                        $scope.items = null;
+                        $scope.calcuAll();
+                        swal("成功!", "已清空结果集!", "success");
+                    } else {
+                        ToasterTool.error("未知服务器错误, 删除失败");
+                    }
+                }, (err) => {
+                    ToasterTool.error("网络错误");
+                });
+            }
+        });   
+    }
+
     $scope.calcuAll = () => {
         $rootScope.loading = true;
         qService.httpGet(resultsRes.resultsAll, {}, {}).then((data) => {

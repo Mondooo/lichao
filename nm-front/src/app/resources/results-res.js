@@ -12,6 +12,10 @@ export default ($resource, BASE_URL) => {
 				get: {
 					method: 'GET',
 					headers: headers,
+				},
+				delete: {
+					method: 'DELETE',
+					headers: headers,
 				}
 			});
 		},

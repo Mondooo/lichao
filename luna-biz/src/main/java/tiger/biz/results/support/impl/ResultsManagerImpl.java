@@ -47,4 +47,9 @@ public class ResultsManagerImpl implements ResultsManager {
 
         return resultsService.delete(id);
     }
+
+    @Override
+    public Boolean deleteAll() {
+        return resultsService.deleteAll();
+    }
 }
