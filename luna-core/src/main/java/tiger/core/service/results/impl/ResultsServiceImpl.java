@@ -35,6 +35,9 @@ public class ResultsServiceImpl implements ResultsService {
     public List<ResultsDomain> getAll() {
         List<Results> DOs = resultsMapper.selectByExample(new ResultsExample());
         List<ResultsDomain> domains = ResultsConvert.convert2Domains(DOs);
+        if (domains == null) {
+            return null;
+        }
         Iterator<ResultsDomain> iterator = domains.iterator();
 
         while (iterator.hasNext()) {

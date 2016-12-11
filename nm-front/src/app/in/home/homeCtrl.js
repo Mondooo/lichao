@@ -7,7 +7,7 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 
 	$scope.getAll = () => {
 		$rootScope.loading = true;
-		qService.httpGet(materialsRes.materialsAll, {}, {}).then((data) => {
+		qService.httpGetWithToken(materialsRes.materialsAll, {}, {}).then((data) => {
 	        if (data.success) {
 	        	ToasterTool.success("查找成功");
 	            $scope.items = data.data;
@@ -38,7 +38,7 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 			"column": $scope.params.column,
 			"value": $scope.params.value,
 		}
-		qService.httpGet(materialsRes.materials, params, {}).then((data) => {
+		qService.httpGetWithToken(materialsRes.materials, params, {}).then((data) => {
 	        if (data.success) {
 	            if (data.data == null) {
 	            	ToasterTool.error("无结果");
@@ -87,7 +87,7 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 			// 修改折扣价格
 			item.discount = inputValue;
 			item.discountprice = inputValue * item.marketprice;
-			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+			qService.httpPutWithToken(materialsRes.materials, {}, {}, item).then((data) => {
 		        if (data.success) {
 		       		swal("修改成功！");
 		        } else {
@@ -121,7 +121,7 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 			}
 			let item_back = item; // 留待还原item
 			item.name = inputValue;
-			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+			qService.httpPutWithToken(materialsRes.materials, {}, {}, item).then((data) => {
 		        if (data.success) {
 		       		swal("修改成功！");
 		        } else {
@@ -155,7 +155,7 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 			}
 			let item_back = item; // 留待还原item
 			item.remarks = inputValue;
-			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+			qService.httpPutWithToken(materialsRes.materials, {}, {}, item).then((data) => {
 		        if (data.success) {
 		       		swal("修改成功！");
 		        } else {
@@ -194,7 +194,7 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 				mid: item.id,
 				count: inputValue
 			};
-			qService.httpPost(resultsRes.results, {}, {}, results).then((data) => {
+			qService.httpPostWithToken(resultsRes.results, {}, {}, results).then((data) => {
 		        if (data.success) {
 		       		swal("成功!", (item.name === null ? item.description:item.name) + "已添加到结果集!", "success");
 		        } else {

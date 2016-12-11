@@ -1,14 +1,18 @@
 export default ($scope, $rootScope, qService, resultsRes, ToasterTool) => {
 	'ngInject';
 	$rootScope.loading = true;
-	qService.httpGet(resultsRes.resultsAll, {}, {}).then((data) => {
+	qService.httpGetWithToken(resultsRes.resultsAll, {}, {}).then((data) => {
         if (data.success) {
-        	ToasterTool.success("查找成功");
-            $scope.items = data.data;
-            let serialNo = 1;
-            for(let key in $scope.items) {
-                $scope.items[key].serialNo = serialNo;
-                serialNo += 1;
+            if (data.data === null) {
+                ToasterTool.warning("无数据");
+            } else {
+                ToasterTool.success("查找成功");
+                $scope.items = data.data;
+                let serialNo = 1;
+                for(let key in $scope.items) {
+                    $scope.items[key].serialNo = serialNo;
+                    serialNo += 1;
+                }
             }
         } else {
         	$scope.items = null;
@@ -37,7 +41,7 @@ export default ($scope, $rootScope, qService, resultsRes, ToasterTool) => {
                 const params = {
                     id: item.id
                 };
-                qService.httpDelete(resultsRes.results, params, {}, {}).then((data) => {
+                qService.httpDeleteWithToken(resultsRes.results, params, {}, {}).then((data) => {
                     if (data.success) {
                         item.hidden = true;
                         $scope.calcuAll();
@@ -66,7 +70,7 @@ export default ($scope, $rootScope, qService, resultsRes, ToasterTool) => {
             animation: "slide-from-top"
         },function(isConfirm){
             if (isConfirm) {
-                qService.httpDelete(resultsRes.resultsAll, {}, {}, {}).then((data) => {
+                qService.httpDeleteWithToken(resultsRes.resultsAll, {}, {}, {}).then((data) => {
                     if (data.success) {
                         $scope.items = null;
                         $scope.calcuAll();
@@ -83,7 +87,7 @@ export default ($scope, $rootScope, qService, resultsRes, ToasterTool) => {
 
     $scope.calcuAll = () => {
         $rootScope.loading = true;
-        qService.httpGet(resultsRes.resultsAll, {}, {}).then((data) => {
+        qService.httpGetWithToken(resultsRes.resultsAll, {}, {}).then((data) => {
             if (data.success) {
                 const items = data.data;
                 $scope.totalPrice = 0;
