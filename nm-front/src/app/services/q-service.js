@@ -19,17 +19,6 @@ export default ($q, $state, $sessionStorage) => {
 					reject(httpResponse);
 				});
 			});
-			/* // This is an example using deferred like promise implementation.
-			* var deferred = $q.defer();
-			* resource(headers).get(parameters,
-			* 	(value, responseHeaders) => {
-			* 		deferred.resolve(value);
-			* 	}, 
-			* 	(httpResponse) => {
-			* 		deferred.resolve(httpResponse);
-			* 	});
-			* return deferred.promise;
-			*/
 		},
 		httpGetWithToken: (resource, parameters, headers) => {
 			return $q((resolve, reject) => {
@@ -72,6 +61,44 @@ export default ($q, $state, $sessionStorage) => {
 		httpPut: (resource, parameters, headers, body) => {
 			return $q((resolve, reject) => {
 				resource(headers).put(parameters,body,
+				(value, responseHeaders) => {
+					value.headers = responseHeaders ? responseHeaders() : "";
+					resolve(value);
+				}, 
+				(httpResponse) => {
+					reject(httpResponse);
+				});
+			});
+		},
+		httpPutWithToken: (resource, parameters, headers, body) => {
+			return $q((resolve, reject) => {
+				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
+				resource(headers).put(parameters,body,
+				(value, responseHeaders) => {
+					value.headers = responseHeaders ? responseHeaders() : "";
+					resolve(value);
+				}, 
+				(httpResponse) => {
+					reject(httpResponse);
+				});
+			});
+		},
+		httpDelete: (resource, parameters, headers, body) => {
+			return $q((resolve, reject) => {
+				resource(headers).delete(parameters,body,
+				(value, responseHeaders) => {
+					value.headers = responseHeaders ? responseHeaders() : "";
+					resolve(value);
+				}, 
+				(httpResponse) => {
+					reject(httpResponse);
+				});
+			});
+		},
+		httpDeleteWithToken: (resource, parameters, headers, body) => {
+			return $q((resolve, reject) => {
+				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
+				resource(headers).delete(parameters,body,
 				(value, responseHeaders) => {
 					value.headers = responseHeaders ? responseHeaders() : "";
 					resolve(value);

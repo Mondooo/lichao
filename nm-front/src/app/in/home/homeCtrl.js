@@ -1,4 +1,4 @@
-export default ($scope, $rootScope, qService, materialsRes, ToasterTool) => {
+export default ($scope, $rootScope, qService, materialsRes, ToasterTool, resultsRes) => {
 	'ngInject';
 
 	const isNull = (value) => {
@@ -170,19 +170,35 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool) => {
 	}
 	$scope.addToResult = (item) => {
 		swal({
-			title: "确定添加?",
-			text: (item.name === null ? item.description:item.name) + "将被添加到结果集!",
-			type: "info",
+			title: "确定添加" + (item.name === null ? item.description:item.name) + "?",
+			text: "输入添加数量:",
+			type: "input",
 			showCancelButton: true,
+			closeOnConfirm: false,
+			showLoaderOnConfirm: true,
 			confirmButtonText: "确定",
 			cancelButtonText: "取消",
-			closeOnConfirm: false
-		},function(){
-			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+			animation: "slide-from-top",
+			inputPlaceholder: "输入整数, 例: 3"
+		},function(inputValue){
+			if (inputValue === false) return false;
+			if (inputValue === "") {
+				swal.showInputError("输入不能为空");
+				return false
+			}
+			if (isNaN(inputValue)) {
+				swal.showInputError("请输入数字");
+				return false
+			}
+			const results = {
+				mid: item.id,
+				count: inputValue
+			};
+			qService.httpPost(resultsRes.results, {}, {}, results).then((data) => {
 		        if (data.success) {
 		       		swal("成功!", (item.name === null ? item.description:item.name) + "已添加到结果集!", "success");
 		        } else {
-		        	ToasterTool.error("未知服务器错误");
+		        	ToasterTool.error("未知服务器错误, 添加失败");
 		        	item = item_back;
 		        }
 		    }, (err) => {
