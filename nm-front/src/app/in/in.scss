@@ -25,9 +25,17 @@
 		}
 	}
 	a.first {
-		@include sidemenuA(25%);
+		@include sidemenuA(18%);
+	}
+	a.mid {
+		@include sidemenuA(50%);
 	}
 	a.last {
-		@include sidemenuA(70%);
+		@include sidemenuA(80%);
+		text-align: center;
+		&:hover, &:active {
+			background: rgb(199, 37, 78);
+			color: #fff;
+		}
 	}
 }

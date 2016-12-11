@@ -38,7 +38,6 @@
 			<i class="fa fa-spinner fa-spin loading-spinner"></i>
 		</div>
 		<div class="table-container">
-			{{item}}
 			<table class="table table-hover">
 				<thead style="word-break: keep-all;"><!-- 强制标题不换行 -->
 					<tr>
@@ -62,7 +61,7 @@
 						<td ng-click="changeDiscount(item)"><span>{{item.discount === null? "":item.discount}}</span><a href="javascript:void(0)">{{item.discount === null? "添加折扣":""}}</a></td>
 						<td>{{item.discountprice | number:2}}</td>
 						<td ng-click="changeRemarks(item)"><span>{{item.remarks === null? "":item.remarks}}</span><a href="javascript:void(0)">{{item.remarks === null? "添加备注":""}}</a></td>
-						<td><a href="javascript:void(0)" ng-click="addToResult(item)"><i class="fa fa-plus" aria-hidden="true"></i></a></td>
+						<td><a href="javascript:void(0)" ng-click="addToResult(item)"><i class="fa fa-plus" style="color: rgb(60, 118, 61);" aria-hidden="true"></i></a></td>
 					</tr>
 				</tbody>
 			</table>
