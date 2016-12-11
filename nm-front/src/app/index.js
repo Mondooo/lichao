@@ -28,6 +28,7 @@ import headerDirect from './common/header/headerDirect';
 import portalCtrl from './auth/portal/portalCtrl';
 import inCtrl from './in/inCtrl';
 import homeCtrl from './in/home/homeCtrl';
+import resultCtrl from './in/result/resultCtrl';
 
 angular.module('soraka',
   ['ngAnimate', 'ngCookies', 'ngSanitize', 'ui.router', 'ngResource', 'ngStorage', 'toaster'])
@@ -64,4 +65,5 @@ angular.module('soraka',
   .controller('portalCtrl', portalCtrl)
   .controller('inCtrl', inCtrl)
   .controller('homeCtrl', homeCtrl)
+  .controller('resultCtrl', resultCtrl)
   ;

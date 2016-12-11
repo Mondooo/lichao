@@ -21,6 +21,11 @@ export default ($stateProvider, $urlRouterProvider, $locationProvider) => {
       templateUrl: 'app/in/home/home.html',
       controller: 'homeCtrl'
     })
+    .state('in.result', {
+      url: '/result',
+      templateUrl: 'app/in/result/result.html',
+      controller: 'resultCtrl'
+    })
     ;
     
 

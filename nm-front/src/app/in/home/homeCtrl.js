@@ -168,4 +168,27 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool) => {
 		    });
 		});
 	}
+	$scope.addToResult = (item) => {
+		swal({
+			title: "确定添加?",
+			text: (item.name === null ? item.description:item.name) + "将被添加到结果集!",
+			type: "info",
+			showCancelButton: true,
+			confirmButtonText: "确定",
+			cancelButtonText: "取消",
+			closeOnConfirm: false
+		},function(){
+			qService.httpPut(materialsRes.materials, {}, {}, item).then((data) => {
+		        if (data.success) {
+		       		swal("成功!", (item.name === null ? item.description:item.name) + "已添加到结果集!", "success");
+		        } else {
+		        	ToasterTool.error("未知服务器错误");
+		        	item = item_back;
+		        }
+		    }, (err) => {
+		    	ToasterTool.error("网络错误");
+		    	item = item_back;
+		    });
+		});
+	}
 };
