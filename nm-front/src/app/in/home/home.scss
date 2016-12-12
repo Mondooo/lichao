@@ -18,13 +18,15 @@
 		border-bottom-left-radius: inherit;
 		box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.15);	
 	}
-	.select-area, .insert-area, .content-area, .title-area {
+	.select-area, .insert-area, .content-area, .titles-area {
 		padding-left: 30px;
 		padding-right: 30px;
 	}
-	.title-area {
+	.titles-area {
 		display: inline-block;
 		margin-top: 10px;
+		padding-bottom: 10px;
+		font-size: 20px;
 		color: #269;
 	}
 	.insert-area {
