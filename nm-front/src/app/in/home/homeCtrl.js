@@ -1,4 +1,4 @@
-export default ($scope, $rootScope, qService, materialsRes, ToasterTool, resultsRes) => {
+export default ($scope, $rootScope, qService, materialsRes, ToasterTool, resultsRes, BASE_URL, FileUploader) => {
 	'ngInject';
 
 	const isNull = (value) => {
@@ -57,9 +57,18 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 	        $rootScope.loading = false;
 	    });
 	}
-	$scope.insert = () => {
-		ToasterTool.info("暂未提供^^");
-	}
+
+	var uploader = $scope.uploader = new FileUploader({
+        url: BASE_URL + '/materials/import',
+        method: 'POST'
+    });
+    uploader.onAfterAddingFile = function(fileItem) {
+        
+    }
+    $scope.importMaterials = () => {
+    	$scope.uploader.queue[uploader.queue.length - 1].upload();
+    }
+
 	$scope.changeDiscount = (item) => {
 		swal({
 			title: "修改折扣",

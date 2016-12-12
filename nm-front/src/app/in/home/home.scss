@@ -35,9 +35,12 @@
 		border-top: 2px groove #58a;
 		.title {
 			font-weight: bold;
+			display: inline-block;
 		}
-		.lichao-insert {
-			margin-left: 2em;
+		table {
+			display: inline-block;
+			width: 500px;
+			margin-bottom: 0;
 		}
 	}
 	.select-area {

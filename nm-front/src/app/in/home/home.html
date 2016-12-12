@@ -1,3 +1,7 @@
+<style type="text/css">
+	.my-drop-zone { display: inline-block; border: dotted 3px lightgray; margin: 0;margin-left: 2em;padding: 5px 20px;}
+	.nv-file-over { border: dotted 3px green; } /* Default class applied to drop zones on over */
+</style>
 <div class="home-module">
 	<div class="titles-area">后台管理页 v0.1.0</div>
 	<div class="select-area">
@@ -29,9 +33,13 @@
 		<button type="button" class="btn btn-default lichao-find" ng-click="getSome()">开始找</button>
 		<button type="button" class="btn btn-default lichao-all" ng-click="getAll()">显示所有</button>
 	</div>
-	<div class="insert-area">
-		<span class="title">新建物料:</span>
-		<button type="button" class="btn btn-default lichao-insert" ng-click="insert()">新建物料</button>
+	<!-- 需要两个东西: nv-file-drop nv-file-over -->
+	<div class="insert-area" nv-file-drop uploader="uploader">
+		<span class="title">导入物料:</span>
+		<div class="well my-drop-zone" nv-file-over uploader="uploader">
+			{{uploader.queue[uploader.queue.length - 1] == null? "将EXCEL文件拖拽到此处": uploader.queue[uploader.queue.length - 1]._file.name}}
+		</div>
+		<input type="button" ng-disabled="uploader.queue[uploader.queue.length - 1].isReady || uploader.queue[uploader.queue.length - 1].isUploading || uploader.queue[uploader.queue.length - 1].isSuccess" style="margin-left: 10px;" class="btn btn-default" ng-click="importMaterials()" name="" value="点击导入">
 	</div>
 	<div class="content-area">
 		<div ng-show="loading" class="app-content-loading">
@@ -39,7 +47,7 @@
 		</div>
 		<div class="table-container">
 			<table class="table table-hover">
-				<thead style="word-break: keep-all;"><!-- 强制标题不换行 -->
+				<thead style="word-break: keep-all;">
 					<tr>
 						<th>物料编码</th>
 						<th>物料名称<span style="font-size: 80%;">(点击修改)</span></th>

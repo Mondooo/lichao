@@ -32,13 +32,13 @@ import homeCtrl from './in/home/homeCtrl';
 import resultCtrl from './in/result/resultCtrl';
 
 angular.module('soraka',
-  ['ngAnimate', 'ngCookies', 'ngSanitize', 'ui.router', 'ngResource', 'ngStorage', 'toaster'])
+  ['ngAnimate', 'ngCookies', 'ngSanitize', 'ui.router', 'ngResource', 'ngStorage', 'toaster', 'angularFileUpload'])
 
   // 配置全局常量
   .constant('lcConfig', config)
   .constant('moment', window.moment)
-  // .constant('BASE_URL', 'http://localhost:8080/api') // 测试
-  .constant('BASE_URL', '/api') // 发布
+  .constant('BASE_URL', 'http://localhost:8080/api') // 测试
+  // .constant('BASE_URL', '/api') // 发布
 
   // 基础配置
   .config(httpConfig)
