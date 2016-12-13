@@ -1,4 +1,4 @@
-export default ($scope, $rootScope, qService, materialsRes, ToasterTool, resultsRes, BASE_URL, FileUploader) => {
+export default ($scope, $rootScope, qService, materialsRes, ToasterTool, resultsRes, BASE_URL) => {
 	'ngInject';
 
 	const isNull = (value) => {
@@ -58,15 +58,82 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 	    });
 	}
 
-	var uploader = $scope.uploader = new FileUploader({
-        url: BASE_URL + '/materials/import',
-        method: 'POST'
-    });
-    uploader.onAfterAddingFile = function(fileItem) {
-        
-    }
+	$("#importBtn").hide(0);
+	let materialDrop = document.getElementById('materialDrop');
+	let importTip = document.getElementById('importTip');
+	function handleDrop(e) {
+		e.stopPropagation();
+		e.preventDefault();
+
+		$scope.excelData = [];
+
+		let files = e.dataTransfer.files;
+		let f = files[0];
+		{
+			let reader = new FileReader();
+			let name = f.name;
+
+			importTip.innerHTML = name;
+
+			reader.onload = function(e) {
+				let data = e.target.result;
+				let workbook = XLSX.read(data, {type: 'binary'});
+				// do something here
+				let first_sheet_name = workbook.SheetNames[0];
+				let worksheet = workbook.Sheets[first_sheet_name];
+
+				let rowIndex = 0;
+				let rowCount = worksheet["!range"].e.r;
+				for (let i = 1; i <= rowCount; i++) {
+					$scope.excelData[rowIndex] = [];
+					$scope.excelData[rowIndex].push(worksheet['A'+i] === undefined? "": worksheet['A'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['B'+i] === undefined? "": worksheet['B'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['C'+i] === undefined? "": worksheet['C'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['D'+i] === undefined? "": worksheet['D'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['E'+i] === undefined? "": worksheet['E'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['F'+i] === undefined? "": worksheet['F'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['G'+i] === undefined? "": worksheet['G'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['H'+i] === undefined? "": worksheet['H'+i].v);
+					$scope.excelData[rowIndex].push(worksheet['I'+i] === undefined? "": worksheet['I'+i].v);
+					rowIndex += 1;
+				}
+				// console.log($scope.excelData);
+				$("#importBtn").show(500);
+				$("#importBtn").removeAttr('disabled');
+			};
+			reader.readAsBinaryString(f);
+		}
+	};
+	function handleDragover(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		e.dataTransfer.dropEffect = 'copy';
+	}
+	materialDrop.addEventListener('dragenter', handleDragover, false);
+	materialDrop.addEventListener('dragover', handleDragover, false);
+	materialDrop.addEventListener('drop', handleDrop, false);
+
     $scope.importMaterials = () => {
-    	$scope.uploader.queue[uploader.queue.length - 1].upload();
+    	$("#importBtn").attr('disabled',"true");
+    	$scope.importLoading = true;
+    	let testRow = $scope.excelData[0];
+    	if ( testRow[0]!=="行号" || testRow[1]!=="物料编码" || testRow[2]!=="物料描述" || testRow[3]!=="大类" || testRow[4]!=="中类" || testRow[5]!=="明细类" || testRow[6]!=="生产公司" || testRow[7]!=="产品线" || testRow[8]!=="面价" ) {
+    		ToasterTool.error("EXCEL格式校验失败！");
+    		return;
+    	}
+    	ToasterTool.success("EXCEL格式校验成功,开始导入数据");
+    	qService.httpPostWithToken(materialsRes.materials, {}, {}, $scope.excelData).then((data) => {
+    		
+	        if (data.success) {
+	       		ToasterTool.success("全部导入成功");
+	        } else {
+	        	ToasterTool.error(data.message);
+	        }
+	    }, (err) => {
+	    	console.log("网络错误");
+	    }).finally(() => {
+	    	$scope.importLoading = false;
+	    });
     }
 
 	$scope.changeDiscount = (item) => {

@@ -18,6 +18,13 @@
 		border-bottom-left-radius: inherit;
 		box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.15);	
 	}
+	.app-import-loading {
+		position: relative;
+		.loading-spinner {
+			top: 0;
+			font-size: inherit;
+		}
+	}
 	.select-area, .insert-area, .content-area, .titles-area {
 		padding-left: 30px;
 		padding-right: 30px;

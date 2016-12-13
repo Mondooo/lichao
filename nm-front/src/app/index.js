@@ -32,7 +32,7 @@ import homeCtrl from './in/home/homeCtrl';
 import resultCtrl from './in/result/resultCtrl';
 
 angular.module('soraka',
-  ['ngAnimate', 'ngCookies', 'ngSanitize', 'ui.router', 'ngResource', 'ngStorage', 'toaster', 'angularFileUpload'])
+  ['ngAnimate', 'ngCookies', 'ngSanitize', 'ui.router', 'ngResource', 'ngStorage', 'toaster'])
 
   // 配置全局常量
   .constant('lcConfig', config)

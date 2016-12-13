@@ -34,12 +34,15 @@
 		<button type="button" class="btn btn-default lichao-all" ng-click="getAll()">显示所有</button>
 	</div>
 	<!-- 需要两个东西: nv-file-drop nv-file-over -->
-	<div class="insert-area" nv-file-drop uploader="uploader">
+	<div class="insert-area">
 		<span class="title">导入物料:</span>
-		<div class="well my-drop-zone" nv-file-over uploader="uploader">
-			{{uploader.queue[uploader.queue.length - 1] == null? "将EXCEL文件拖拽到此处": uploader.queue[uploader.queue.length - 1]._file.name}}
+		<div class="well my-drop-zone" id="materialDrop">
+			<span ng-show="importLoading" class="app-import-loading">
+				<i class="fa fa-spinner fa-spin loading-spinner"></i>
+			</span>
+			<span id="importTip">将EXCEL文件拖拽到此处</span>
 		</div>
-		<input type="button" ng-disabled="uploader.queue[uploader.queue.length - 1].isReady || uploader.queue[uploader.queue.length - 1].isUploading || uploader.queue[uploader.queue.length - 1].isSuccess" style="margin-left: 10px;" class="btn btn-default" ng-click="importMaterials()" name="" value="点击导入">
+		<input type="button" id="importBtn" style="margin-left: 10px;" class="btn btn-default" ng-click="importMaterials()" name="" value="点击导入">
 	</div>
 	<div class="content-area">
 		<div ng-show="loading" class="app-content-loading">
