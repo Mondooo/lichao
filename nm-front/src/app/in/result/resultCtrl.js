@@ -86,7 +86,6 @@ export default ($scope, $rootScope, qService, resultsRes, ToasterTool) => {
     }
 
     $scope.calcuAll = () => {
-        $rootScope.loading = true;
         qService.httpGetWithToken(resultsRes.resultsAll, {}, {}).then((data) => {
             if (data.success) {
                 const items = data.data;
@@ -100,8 +99,6 @@ export default ($scope, $rootScope, qService, resultsRes, ToasterTool) => {
         }, (err) => {
             ToasterTool.error("网络错误");
             $scope.totalPrice = 0;
-        }).finally(() => {
-            $rootScope.loading = false;
         });
     }
     $scope.showTotalPrice = () => {

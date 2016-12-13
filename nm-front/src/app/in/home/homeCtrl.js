@@ -159,7 +159,8 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 				swal.showInputError("请输入数字");
 				return false
 			}
-			let item_back = item; // 留待还原item
+			let discount_back = item.discount; // 留待还原item
+			let discountprice_back = item.discountprice;
 			// 修改折扣价格
 			item.discount = inputValue;
 			item.discountprice = inputValue * item.marketprice;
@@ -168,11 +169,13 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 		       		swal("修改成功！");
 		        } else {
 		        	ToasterTool.error("未知服务器错误");
-		        	item = item_back;
+		        	item.discount = discount_back;
+		       		item.discountprice = discountprice_back;
 		        }
 		    }, (err) => {
 		    	ToasterTool.error("网络错误");
-		    	item = item_back;
+		    	item.discount = discount_back;
+	       		item.discountprice = discountprice_back;
 		    });
 		});
 	}
@@ -195,18 +198,18 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 				swal.showInputError("输入不能为空");
 				return false
 			}
-			let item_back = item; // 留待还原item
+			let name_back = item.name;
 			item.name = inputValue;
 			qService.httpPutWithToken(materialsRes.materials, {}, {}, item).then((data) => {
 		        if (data.success) {
 		       		swal("修改成功！");
 		        } else {
 		        	ToasterTool.error("未知服务器错误");
-		        	item = item_back;
+		        	item.name = name_back;
 		        }
 		    }, (err) => {
 		    	ToasterTool.error("网络错误");
-		    	item = item_back;
+		    	item.name = name_back;
 		    });
 		});
 	}
@@ -229,18 +232,18 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 				swal.showInputError("输入不能为空");
 				return false
 			}
-			let item_back = item; // 留待还原item
+			let remarks_back = item.remarks;
 			item.remarks = inputValue;
 			qService.httpPutWithToken(materialsRes.materials, {}, {}, item).then((data) => {
 		        if (data.success) {
 		       		swal("修改成功！");
 		        } else {
 		        	ToasterTool.error("未知服务器错误");
-		        	item = item_back;
+		        	item.remarks = remarks_back;
 		        }
 		    }, (err) => {
 		    	ToasterTool.error("网络错误");
-		    	item = item_back;
+		    	item.remarks = remarks_back;
 		    });
 		});
 	}
@@ -275,11 +278,9 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 		       		swal("成功!", (item.name === null ? item.description:item.name) + "已添加到结果集!", "success");
 		        } else {
 		        	ToasterTool.error("未知服务器错误, 添加失败");
-		        	item = item_back;
 		        }
 		    }, (err) => {
 		    	ToasterTool.error("网络错误");
-		    	item = item_back;
 		    });
 		});
 	}

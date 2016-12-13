@@ -48,7 +48,7 @@ public class MaterialsManagerImpl implements MaterialsManager {
             temp.setCompany(materials[i][6]);
             temp.setProductline(materials[i][7]);
             temp.setMarketprice(Double.parseDouble(materials[i][8]));
-            temp.setDiscountprice(0.88);
+            temp.setDiscount(0.55);
             mark = mark &&  materialsService.insert(MaterialsConvert.convert2DO(temp));
         }
         return mark;
