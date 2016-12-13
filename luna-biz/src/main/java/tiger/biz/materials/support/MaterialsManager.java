@@ -18,7 +18,7 @@ public interface MaterialsManager {
 
     PageResult<List<MaterialsDomain>> getAll();
 
-    Boolean insert(MaterialsDomain materialsDomain);
+    Boolean insert(String [][] materials);
 
     Boolean update(MaterialsDomain materialsDomain);
 

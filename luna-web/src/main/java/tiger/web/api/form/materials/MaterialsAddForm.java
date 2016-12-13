@@ -20,7 +20,6 @@ public class MaterialsAddForm implements FormInterface {
     @NotNull(message = "物料编码不能为空")
     private String code;
 
-    @NotNull(message = "物料名称不能为空")
     private String name;
 
     @NotNull(message = "物料描述不能为空")

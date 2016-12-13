@@ -33,12 +33,25 @@ public class MaterialsManagerImpl implements MaterialsManager {
     }
 
     @Override
-    public Boolean insert(MaterialsDomain materialsDomain) {
-        if (materialsDomain == null) {
+    public Boolean insert(String [][] materials) {
+        if (materials == null) {
             return false;
         }
-
-        return materialsService.insert(MaterialsConvert.convert2DO(materialsDomain));
+        boolean mark = true;
+        for (int i = 1; i < materials.length; i++) {
+            MaterialsDomain temp = new MaterialsDomain();
+            temp.setCode(materials[i][1]);
+            temp.setDescription(materials[i][2]);
+            temp.setMajorcategory(materials[i][3]);
+            temp.setSubcategory(materials[i][4]);
+            temp.setDetailclass(materials[i][5]);
+            temp.setCompany(materials[i][6]);
+            temp.setProductline(materials[i][7]);
+            temp.setMarketprice(Double.parseDouble(materials[i][8]));
+            temp.setDiscountprice(0.88);
+            mark = mark &&  materialsService.insert(MaterialsConvert.convert2DO(temp));
+        }
+        return mark;
     }
 
     @Override

@@ -47,17 +47,15 @@ public class MaterialsController extends BaseController{
     /**
      * 新增一条物料信息
      *
-     * @param materialsAddForm
+     * @param materials
      * @param bindingResult
      * @return
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult<Boolean> insertMaterials(@RequestBody @Valid MaterialsAddForm materialsAddForm,
+    public BaseResult<Boolean> insertMaterials(@RequestBody String[][] materials,
                                                        BindingResult bindingResult) {
-
-        MaterialsDomain materialsDomain = materialsAddForm.convert2Domain();
-        return new BaseResult<>(materialsManager.insert(materialsDomain));
+        return new BaseResult<>(materialsManager.insert(materials));
     }
 
     /**
