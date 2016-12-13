@@ -21,7 +21,7 @@
 					<td>{{item.serialNo}}</td>
 					<td>{{item.name}}</td>
 					<td>{{item.description}}</td>
-					<td>{{item.discountprice}}</td>
+					<td>{{item.discountprice | number:2}}</td>
 					<td>{{item.count}}</td>
 					<td>{{item.discountprice * item.count | number:2}}</td>
 					<td>{{item.remarks}}</td>
