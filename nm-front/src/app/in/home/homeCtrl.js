@@ -115,25 +115,26 @@ export default ($scope, $rootScope, qService, materialsRes, ToasterTool, results
 
     $scope.importMaterials = () => {
     	$("#importBtn").attr('disabled',"true");
-    	$scope.importLoading = true;
+    	// $scope.importLoading = true;
     	let testRow = $scope.excelData[0];
     	if ( testRow[0]!=="行号" || testRow[1]!=="物料编码" || testRow[2]!=="物料描述" || testRow[3]!=="大类" || testRow[4]!=="中类" || testRow[5]!=="明细类" || testRow[6]!=="生产公司" || testRow[7]!=="产品线" || testRow[8]!=="面价" ) {
     		ToasterTool.error("EXCEL格式校验失败！");
     		return;
     	}
-    	ToasterTool.success("EXCEL格式校验成功,开始导入数据");
-    	qService.httpPostWithToken(materialsRes.materials, {}, {}, $scope.excelData).then((data) => {
+    	// ToasterTool.success("EXCEL格式校验成功,开始导入数据");
+    	ToasterTool.warning("导入功能占时关闭");
+    	// qService.httpPostWithToken(materialsRes.materials, {}, {}, $scope.excelData).then((data) => {
     		
-	        if (data.success) {
-	       		ToasterTool.success("全部导入成功");
-	        } else {
-	        	ToasterTool.error(data.message);
-	        }
-	    }, (err) => {
-	    	console.log("网络错误");
-	    }).finally(() => {
-	    	$scope.importLoading = false;
-	    });
+	    //     if (data.success) {
+	    //    		ToasterTool.success("全部导入成功");
+	    //     } else {
+	    //     	ToasterTool.error(data.message);
+	    //     }
+	    // }, (err) => {
+	    // 	console.log("网络错误");
+	    // }).finally(() => {
+	    // 	$scope.importLoading = false;
+	    // });
     }
 
 	$scope.changeDiscount = (item) => {

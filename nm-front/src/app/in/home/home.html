@@ -31,7 +31,9 @@
 		<span>找</span>
 		<input type="text" name="" class="form-control" placeholder="找啥？" ng-model="params.value">
 		<button type="button" class="btn btn-default lichao-find" ng-click="getSome()">开始找</button>
-		<button type="button" class="btn btn-default lichao-all" ng-click="getAll()">显示所有</button>
+		<!-- <button type="button" class="btn btn-default lichao-all" ng-click="getAll()">显示所有</button> -->
+		<span style="font-size: 70%;color: #587;margin-left: 1em;position: relative;top: 6px;">提示：多个<span style="color: #FF6600;">关键词</span>之间用<span style="color: #FF6600
+;">空格</span>隔开, 系统会匹配到包含所有这些关键字的记录</span>
 	</div>
 	<!-- 需要两个东西: nv-file-drop nv-file-over -->
 	<div class="insert-area">

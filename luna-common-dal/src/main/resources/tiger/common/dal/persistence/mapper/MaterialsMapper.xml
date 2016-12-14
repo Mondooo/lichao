@@ -121,6 +121,13 @@
     from materials
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    *
+    from materials
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     <!--
       WARNING - @mbggenerated
