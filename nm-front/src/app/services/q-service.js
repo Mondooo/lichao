@@ -6,7 +6,7 @@ export default ($q, $state, $sessionStorage, ToasterTool) => {
 	'ngInject';
 
 	let TOKEN_KEY = 'x-auth-token';
-	$sessionStorage[TOKEN_KEY] = "6d60749d793e43cc8599aa1a1f8aa227";
+	// $sessionStorage[TOKEN_KEY] = "6d60749d793e43cc8599aa1a1f8aa227";
 
 	const CodeHandler = (value) => {
 		if (value.code === "502") {
@@ -30,10 +30,10 @@ export default ($q, $state, $sessionStorage, ToasterTool) => {
 		},
 		httpGetWithToken: (resource, parameters, headers) => {
 			return $q((resolve, reject) => {
-				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).get(parameters,
 				(value, responseHeaders) => {
+					CodeHandler(value);
 					value.headers = responseHeaders ? responseHeaders() : "";
 					resolve(value);
 				}, 
@@ -56,10 +56,10 @@ export default ($q, $state, $sessionStorage, ToasterTool) => {
 		},
 		httpPostWithToken: (resource, parameters, headers, body) => {
 			return $q((resolve, reject) => {
-				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).post(parameters,body,
 				(value, responseHeaders) => {
+					CodeHandler(value);
 					value.headers = responseHeaders ? responseHeaders() : "";
 					resolve(value);
 				}, 
@@ -82,10 +82,10 @@ export default ($q, $state, $sessionStorage, ToasterTool) => {
 		},
 		httpPutWithToken: (resource, parameters, headers, body) => {
 			return $q((resolve, reject) => {
-				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).put(parameters,body,
 				(value, responseHeaders) => {
+					CodeHandler(value);
 					value.headers = responseHeaders ? responseHeaders() : "";
 					resolve(value);
 				}, 
@@ -108,10 +108,10 @@ export default ($q, $state, $sessionStorage, ToasterTool) => {
 		},
 		httpDeleteWithToken: (resource, parameters, headers, body) => {
 			return $q((resolve, reject) => {
-				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).delete(parameters,body,
 				(value, responseHeaders) => {
+					CodeHandler(value);
 					value.headers = responseHeaders ? responseHeaders() : "";
 					resolve(value);
 				}, 
