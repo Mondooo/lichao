@@ -4,11 +4,11 @@
  */
 package tiger.web.api.controller.results;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tiger.biz.results.support.ResultsManager;
+import tiger.common.dal.annotation.LoginRequired;
 import tiger.core.basic.BaseResult;
 import tiger.core.basic.PageResult;
 import tiger.core.domain.results.ResultsDomain;
@@ -39,6 +39,7 @@ public class ResultsController extends BaseController {
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
+    @LoginRequired
     public PageResult<List<ResultsDomain>> getAll() {
 
         return resultsManager.getAll();
@@ -51,6 +52,7 @@ public class ResultsController extends BaseController {
      */
     @RequestMapping(value = "/all", method = RequestMethod.DELETE)
     @ResponseBody
+    @LoginRequired
     public BaseResult<Boolean> deleteAll() {
 
         return new BaseResult<>(resultsManager.deleteAll());
@@ -65,6 +67,7 @@ public class ResultsController extends BaseController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
+    @LoginRequired
     public BaseResult<Boolean> insertResults(@RequestBody @Valid ResultsAddForm resultsAddForm,
                                                BindingResult bindingResult) {
 
@@ -80,6 +83,7 @@ public class ResultsController extends BaseController {
      */
     @RequestMapping(value = "", method = RequestMethod.DELETE)
     @ResponseBody
+    @LoginRequired
     public BaseResult<Boolean> deleteResults(@RequestParam("id") Long id) {
 
         return new BaseResult<>(resultsManager.delete(id));

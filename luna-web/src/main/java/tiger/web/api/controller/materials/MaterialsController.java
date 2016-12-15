@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tiger.biz.materials.support.MaterialsManager;
+import tiger.common.dal.annotation.LoginRequired;
 import tiger.core.basic.BaseResult;
 import tiger.core.basic.PageResult;
 import tiger.core.domain.materials.MaterialsDomain;
 import tiger.web.api.constants.APIConstants;
 import tiger.web.api.controller.BaseController;
-import tiger.web.api.form.materials.MaterialsAddForm;
 import tiger.web.api.form.materials.MaterialsUpdateForm;
 
 import javax.validation.Valid;
@@ -39,6 +39,7 @@ public class MaterialsController extends BaseController{
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
+    @LoginRequired
     public PageResult<List<MaterialsDomain>> getAll() {
 
         return materialsManager.getAll();
@@ -53,6 +54,7 @@ public class MaterialsController extends BaseController{
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
+    @LoginRequired
     public BaseResult<Boolean> insertMaterials(@RequestBody String[][] materials,
                                                        BindingResult bindingResult) {
         return new BaseResult<>(materialsManager.insert(materials));
@@ -67,6 +69,7 @@ public class MaterialsController extends BaseController{
      */
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @ResponseBody
+    @LoginRequired
     public BaseResult<Boolean> updateMaterials(@RequestBody @Valid MaterialsUpdateForm materialsUpdateForm,
                                                BindingResult bindingResult) {
 
@@ -82,6 +85,7 @@ public class MaterialsController extends BaseController{
      * @return
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
+    @LoginRequired
     public PageResult<List<MaterialsDomain>> getSomeMaterials(@RequestParam("column") String column,
                                                 @RequestParam("value") String value) {
 

@@ -2,11 +2,18 @@
 * 功能: 异步方式封装http调用
 * --Mondooo
 */
-export default ($q, $state, $sessionStorage) => {
+export default ($q, $state, $sessionStorage, ToasterTool) => {
 	'ngInject';
 
 	let TOKEN_KEY = 'x-auth-token';
 	$sessionStorage[TOKEN_KEY] = "6d60749d793e43cc8599aa1a1f8aa227";
+
+	const CodeHandler = (value) => {
+		if (value.code === "502") {
+			$state.go("portal");
+			ToasterTool.warning("本系统需要登录之后使用！");
+		}
+	}
 	
 	return {
 		httpGet: (resource, parameters, headers) => {
@@ -23,6 +30,7 @@ export default ($q, $state, $sessionStorage) => {
 		},
 		httpGetWithToken: (resource, parameters, headers) => {
 			return $q((resolve, reject) => {
+				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).get(parameters,
 				(value, responseHeaders) => {
@@ -48,6 +56,7 @@ export default ($q, $state, $sessionStorage) => {
 		},
 		httpPostWithToken: (resource, parameters, headers, body) => {
 			return $q((resolve, reject) => {
+				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).post(parameters,body,
 				(value, responseHeaders) => {
@@ -73,6 +82,7 @@ export default ($q, $state, $sessionStorage) => {
 		},
 		httpPutWithToken: (resource, parameters, headers, body) => {
 			return $q((resolve, reject) => {
+				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).put(parameters,body,
 				(value, responseHeaders) => {
@@ -98,6 +108,7 @@ export default ($q, $state, $sessionStorage) => {
 		},
 		httpDeleteWithToken: (resource, parameters, headers, body) => {
 			return $q((resolve, reject) => {
+				CodeHandler(value);
 				headers['X-Auth-Token'] = $sessionStorage[TOKEN_KEY];
 				resource(headers).delete(parameters,body,
 				(value, responseHeaders) => {
